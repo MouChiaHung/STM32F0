@@ -56,7 +56,6 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern SPI_HandleTypeDef hspi1;
 extern TIM_HandleTypeDef htim2;
 extern UART_HandleTypeDef huart1;
 /* USER CODE BEGIN EV */
@@ -64,7 +63,7 @@ extern UART_HandleTypeDef huart1;
 /* USER CODE END EV */
 
 /******************************************************************************/
-/*           Cortex-M0 Processor Interruption and Exception Handlers          */ 
+/*           Cortex-M0 Processor Interruption and Exception Handlers          */
 /******************************************************************************/
 /**
   * @brief This function handles Non maskable interrupt.
@@ -166,6 +165,66 @@ void EXTI0_1_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles EXTI line 2 and 3 interrupts.
+  */
+void EXTI2_3_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI2_3_IRQn 0 */
+	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_2)) {
+		 HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
+	}
+	else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_3)) {
+		 HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
+	}
+	else {
+		__NOP();
+	}
+	return;
+  /* USER CODE END EXTI2_3_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
+  /* USER CODE BEGIN EXTI2_3_IRQn 1 */
+
+  /* USER CODE END EXTI2_3_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line 4 to 15 interrupts.
+  */
+void EXTI4_15_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI4_15_IRQn 0 */
+	if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_4)) {
+		 HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
+	}
+	else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_5)) {
+		 HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
+	}
+	else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_6)) {
+		 HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
+	}
+	else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_7)) {
+		 HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_7);
+	}
+	else if (__HAL_GPIO_EXTI_GET_FLAG(GPIO_PIN_10)) {
+		 HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
+	}
+	else {
+		__NOP();
+	}
+	return;
+  /* USER CODE END EXTI4_15_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_7);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
+  /* USER CODE BEGIN EXTI4_15_IRQn 1 */
+
+  /* USER CODE END EXTI4_15_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM2 global interrupt.
   */
 void TIM2_IRQHandler(void)
@@ -177,20 +236,6 @@ void TIM2_IRQHandler(void)
   /* USER CODE BEGIN TIM2_IRQn 1 */
 
   /* USER CODE END TIM2_IRQn 1 */
-}
-
-/**
-  * @brief This function handles SPI1 global interrupt.
-  */
-void SPI1_IRQHandler(void)
-{
-  /* USER CODE BEGIN SPI1_IRQn 0 */
-
-  /* USER CODE END SPI1_IRQn 0 */
-  HAL_SPI_IRQHandler(&hspi1);
-  /* USER CODE BEGIN SPI1_IRQn 1 */
-
-  /* USER CODE END SPI1_IRQn 1 */
 }
 
 /**

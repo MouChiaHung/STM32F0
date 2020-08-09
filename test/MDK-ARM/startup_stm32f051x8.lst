@@ -363,11 +363,12 @@ ARM Macro Assembler    Page 6
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0 --apcs=interw
 ork --depend=test\startup_stm32f051x8.d -otest\startup_stm32f051x8.o -I.\RTE\_t
-est -IC:\ARM\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\ARM\Pack\Keil\STM32F0
-xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include --predefine="__EVAL SETA
- 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 530" --
-predefine="_RTE_ SETA 1" --predefine="STM32F051x8 SETA 1" --predefine="_RTE_ SE
-TA 1" --list=startup_stm32f051x8.lst startup_stm32f051x8.s
+est -IC:\Users\Amo\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -
+IC:\Users\Amo\AppData\Local\Arm\Packs\Keil\STM32F0xx_DFP\2.1.0\Drivers\CMSIS\De
+vice\ST\STM32F0xx\Include --predefine="__EVAL SETA 1" --predefine="__MICROLIB S
+ETA 1" --predefine="__UVISION_VERSION SETA 531" --predefine="_RTE_ SETA 1" --pr
+edefine="STM32F051x8 SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f05
+1x8.lst startup_stm32f051x8.s
 
 
 

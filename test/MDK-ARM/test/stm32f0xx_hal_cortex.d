@@ -6,13 +6,13 @@ test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_d
 test\stm32f0xx_hal_cortex.o: ../Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f0xx.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f051x8.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/CMSIS/Include/core_cm0.h
-test\stm32f0xx_hal_cortex.o: C:\ARM\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+test\stm32f0xx_hal_cortex.o: D:\ARM\ARM\ARMCC\Bin\..\include\stdint.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/CMSIS/Include/cmsis_version.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/CMSIS/Device/ST/STM32F0xx/Include/system_stm32f0xx.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h
-test\stm32f0xx_hal_cortex.o: C:\ARM\Keil\ARM\ARMCC\Bin\..\include\stddef.h
+test\stm32f0xx_hal_cortex.o: D:\ARM\ARM\ARMCC\Bin\..\include\stddef.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc_ex.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio_ex.h
@@ -26,8 +26,6 @@ test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c_ex.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h
-test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi.h
-test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h
 test\stm32f0xx_hal_cortex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
