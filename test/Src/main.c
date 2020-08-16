@@ -34,8 +34,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define TEST_PASS 1
-#define TEST_FAIL 0
+#define TEST_PASS 0
+#define TEST_FAIL 1
 #define TEST_GO 1
 #define TEST_WAIT 0
 /* USER CODE END PD */
@@ -142,23 +142,57 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 int test8MAGNET(void) {
 	GPIO_PinState bitstatus = GPIO_PIN_RESET;	
+	int ret = TEST_PASS;
+	
+#if 0 //pressure test
+	return ret;
+#endif 	
+	
 	bitstatus = HAL_GPIO_ReadPin(GPIOA, CUBE1_Pin);
-	if (bitstatus != GPIO_PIN_SET) return TEST_FAIL-1;
+	if (bitstatus == GPIO_PIN_SET) {
+		ret |= (0x1ul<<0);
+		//return ret;
+	}
 	bitstatus = HAL_GPIO_ReadPin(GPIOA, CUBE2_Pin);
-	if (bitstatus != GPIO_PIN_SET) return TEST_FAIL-2;
+	if (bitstatus == GPIO_PIN_SET) {
+		ret |= (0x1ul<<1);
+		//return ret;
+	}
 	bitstatus = HAL_GPIO_ReadPin(GPIOA, CUBE3_Pin);
-	if (bitstatus != GPIO_PIN_SET) return TEST_FAIL-3;
+	if (bitstatus == GPIO_PIN_SET) {
+		ret |= (0x1ul<<2);
+		//return ret;
+	}
 	bitstatus = HAL_GPIO_ReadPin(GPIOA, CUBE4_Pin);
-	if (bitstatus != GPIO_PIN_SET) return TEST_FAIL-4;
+	if (bitstatus == GPIO_PIN_SET) {
+		ret |= (0x1ul<<3);
+		//return ret;
+	}
 	bitstatus = HAL_GPIO_ReadPin(GPIOA, CUBE5_Pin);
-	if (bitstatus != GPIO_PIN_SET) return TEST_FAIL-5;
+	if (bitstatus == GPIO_PIN_SET) {
+		ret |= (0x1ul<<4);
+		//return ret;
+	}
 	bitstatus = HAL_GPIO_ReadPin(GPIOA, CUBE6_Pin);
-	if (bitstatus != GPIO_PIN_SET) return TEST_FAIL-6;
+#if 0 //my sensor broken...	
+	if (bitstatus == GPIO_PIN_SET) {
+		ret |= (0x1ul<<5);
+		//return ret;
+	}
+#endif	
 	bitstatus = HAL_GPIO_ReadPin(GPIOA, CUBE7_Pin);
-	if (bitstatus != GPIO_PIN_SET) return TEST_FAIL-7;
+#if 1 //my sensor broken...	
+	if (bitstatus == GPIO_PIN_SET) {
+		ret |= (0x1ul<<6);
+		//return ret;
+	}
+#endif
 	bitstatus = HAL_GPIO_ReadPin(GPIOB, CUBE8_Pin);
-	if (bitstatus != GPIO_PIN_SET) return TEST_FAIL-8;
-	return TEST_PASS;
+	if (bitstatus == GPIO_PIN_SET) {
+		ret |= (0x1ul<<7);
+		//return ret;
+	}
+	return ret;
 }
 
 
@@ -212,7 +246,8 @@ int main(void)
   while (1)
   {
 		ret = TEST_FAIL;
-		if (isGoTest == TEST_GO) {
+		//if (isGoTest == TEST_GO) {
+		if (1) {
 			ret = test8MAGNET();
 		}
 		if (ret == TEST_PASS) {
@@ -222,22 +257,55 @@ int main(void)
 			i = 1*1000*1000;	
 			while (i--) {__NOP();}	
 			__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 25);
+			HAL_Delay(1*1000);
 		}
 		else {
-			//
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+			HAL_Delay(1*500);
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
 		}
 		isGoTest = TEST_WAIT;
 		
 #if 1 //print uart buffer
-			if (ret != TEST_FAIL) {	
-				sprintf(msg, "%s%d\n", "[TEST]:", ret);
+			if (ret != TEST_PASS) {	
+				sprintf(msg, "%s0x%x\n", "[TEST]:", ret);
+				if ((ret & (0x1ul<<0))) {
+					strcat(msg, "[1]");
+				}
+				if ((ret & (0x1ul<<1))) {
+					strcat(msg, "[2]");
+				}
+				if ((ret & (0x1ul<<2))) {
+					strcat(msg, "[3]");
+				}
+				if ((ret & (0x1ul<<3))) {
+					strcat(msg, "[4]");
+				}
+				if ((ret & (0x1ul<<4))) {
+					strcat(msg, "[5]");
+				}
+				if ((ret & (0x1ul<<5))) {
+					strcat(msg, "[6]");
+				}
+				if ((ret & (0x1ul<<6))) {
+					strcat(msg, "[7]");
+				}
+				if ((ret & (0x1ul<<7))) {
+					strcat(msg, "[8]");
+				}
+				strcat(msg, "FAIL\n");
+				int len = strlen(msg);
+				HAL_UART_Transmit(&huart1, (uint8_t *)msg, len, 100*len);
+			}
+			else {
+				sprintf(msg, "%s\n", "[TEST PASS]");
 				int len = strlen(msg);
 				HAL_UART_Transmit(&huart1, (uint8_t *)msg, len, 100*len);
 			}
 #else			
 		__NOP();
 #endif	
-		HAL_Delay(1*100);
+		HAL_Delay(1*40);
 		//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
 	}	
     /* USER CODE END WHILE */
@@ -399,6 +467,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, CUBE1_Pin|CUBE2_Pin|CUBE3_Pin|CUBE4_Pin
+                          |CUBE5_Pin|CUBE6_Pin|CUBE7_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(CUBE8_GPIO_Port, CUBE8_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, LD4_Pin|LD3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
@@ -411,14 +486,16 @@ static void MX_GPIO_Init(void)
                            CUBE5_Pin CUBE6_Pin CUBE7_Pin */
   GPIO_InitStruct.Pin = CUBE1_Pin|CUBE2_Pin|CUBE3_Pin|CUBE4_Pin
                           |CUBE5_Pin|CUBE6_Pin|CUBE7_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : CUBE8_Pin */
   GPIO_InitStruct.Pin = CUBE8_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(CUBE8_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LD4_Pin LD3_Pin */
@@ -431,12 +508,6 @@ static void MX_GPIO_Init(void)
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
-
-  HAL_NVIC_SetPriority(EXTI2_3_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI2_3_IRQn);
-
-  HAL_NVIC_SetPriority(EXTI4_15_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
 
 }
 
